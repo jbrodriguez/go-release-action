@@ -10,6 +10,9 @@ RELEASE_ASSET_NAME=${BINARY_NAME}-${RELEASE_TAG}-${INPUT_GOOS}-${INPUT_GOARCH}
 
 # prepare upload URL
 RELEASE_ASSETS_UPLOAD_URL=$(cat ${GITHUB_EVENT_PATH} | jq -r .release.upload_url)
+if [ ! -z "${INPUT_UPLOAD_URL}"]; then
+  RELEASE_ASSETS_UPLOAD_URL=${INPUT_UPLOAD_URL}
+fi
 RELEASE_ASSETS_UPLOAD_URL=${RELEASE_ASSETS_UPLOAD_URL%\{?name,label\}}
 
 # execute pre-command if exist, e.g. `go get -v ./...`

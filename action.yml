@@ -1,47 +1,51 @@
 # action.yml
-name: 'Go Release Binaries'
-author: 'Jay Zhang <wangyoucao577@gmail.com>'
-description: 'Release Go binaries to GitHub Release Assets'
+name: "Go Release Binaries"
+author: "Jay Zhang <wangyoucao577@gmail.com>"
+description: "Release Go binaries to GitHub Release Assets"
 inputs:
   github_token:
-    description: 'GITHUB_TOKEN for uploading releases to Github asserts.'
+    description: "GITHUB_TOKEN for uploading releases to Github asserts."
     required: true
-    default: ''
+    default: ""
   goos:
-    description: 'GOOS is the running programs operating system target: one of darwin, freebsd, linux, and so on.'
+    description: "GOOS is the running programs operating system target: one of darwin, freebsd, linux, and so on."
     required: true
-    default: ''
+    default: ""
   goarch:
-    description: 'GOARCH is the running programs architecture target: one of 386, amd64, arm, s390x, and so on.'
+    description: "GOARCH is the running programs architecture target: one of 386, amd64, arm, s390x, and so on."
     required: true
-    default: ''
+    default: ""
   goversion:
-    description: 'The `Go` compiler version.'
+    description: "The `Go` compiler version."
     required: false
-    default: ''
+    default: ""
   build_flags:
-    description: 'Additional arguments to pass the go build command.'
+    description: "Additional arguments to pass the go build command."
     required: false
-    default: ''
+    default: ""
   ldflags:
-    description: 'Values to provide to the -ldflags argument'
+    description: "Values to provide to the -ldflags argument"
     required: false
-    default: ''
+    default: ""
   project_path:
-    description: 'Where to run `go build .`'
+    description: "Where to run `go build .`"
     required: false
-    default: '.'
-  binary_name:  
-    description: 'Specify another binary name if do not want to use repository basename'
+    default: "."
+  binary_name:
+    description: "Specify another binary name if do not want to use repository basename"
     required: false
-    default: ''
+    default: ""
   pre_command:
-    description: 'Extra command that will be executed before `go build`, may for solving dependency'
+    description: "Extra command that will be executed before `go build`, may for solving dependency"
     required: false
-    default: ''
+    default: ""
+  upload_url:
+    description: "Url to upload assets for a release"
+    required: false
+    default: ""
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.github_token }}
     - ${{ inputs.goos }}
@@ -53,6 +57,7 @@ runs:
     - ${{ inputs.binary_name }}
     - ${{ inputs.compression }}
     - ${{ inputs.pre_command }}
+    - ${{ inputs.upload_url }}
 branding:
-  icon: 'package'  
-  color: 'blue'
+  icon: "package"
+  color: "blue"
